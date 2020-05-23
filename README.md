@@ -1,5 +1,10 @@
 # logger
 
+## Register
+
+- Register once, ues anyware.
+- switch debug level on code running.
+
 ## Basic Usage
 
 ```go
