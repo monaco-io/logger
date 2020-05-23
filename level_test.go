@@ -30,6 +30,16 @@ func TestLevel(t *testing.T) {
 	E("msg", "key", "val")
 }
 
+func TestLevelPanic(t *testing.T) {
+	defer func() {
+		e := recover()
+		if e == "this is a panic" {
+			t.Fatal()
+		}
+	}()
+	P("this is a panic", "key", "val")
+}
+
 func TestRegisterDebug(t *testing.T) {
 	if _autoLevel.Level() == zap.DebugLevel {
 		t.Fail()

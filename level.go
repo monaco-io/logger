@@ -15,3 +15,7 @@ func W(msg string, keyValues ...interface{}) {
 func E(msg string, keyValues ...interface{}) {
 	_handler(err, msg, keyValues...)
 }
+
+func P(msg string, keyValues ...interface{}) {
+	_handler(panic, msg, keyValues...)
+}

@@ -10,6 +10,7 @@ const (
 	info
 	warn
 	err
+	panic
 )
 
 var (
