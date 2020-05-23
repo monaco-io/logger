@@ -1,10 +1,11 @@
 package logger
 
 import (
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 	"io"
 	"os"
+
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 var (
@@ -25,10 +26,18 @@ func RegisterWriter(writers ...io.Writer) {
 	for _, w := range writers {
 		if writerTmp == nil {
 			writerTmp = zapcore.AddSync(w)
-			break
+			continue
 		}
 		writerTmp = zap.CombineWriteSyncers(writerTmp, zapcore.AddSync(w))
 	}
 	writer = writerTmp
 	newLogger()
+}
+
+func RegisterDebug(debug bool) {
+	if debug {
+		_autoLevel.SetLevel(zap.DebugLevel)
+		return
+	}
+	_autoLevel.SetLevel(zap.InfoLevel)
 }
