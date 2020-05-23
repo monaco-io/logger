@@ -12,6 +12,7 @@ var (
 	_encoderConfig = zap.NewDevelopmentEncoderConfig()
 	_autoLevel     = zap.NewAtomicLevel()
 
+	name         string
 	writer       zapcore.WriteSyncer
 	caller       = zap.AddCaller()
 	callerConfig = zap.AddCallerSkip(2)
@@ -40,4 +41,9 @@ func RegisterDebug(debug bool) {
 		return
 	}
 	_autoLevel.SetLevel(zap.InfoLevel)
+}
+
+func RegisterServiceName(serviceName string) {
+	name = serviceName
+	newLogger()
 }

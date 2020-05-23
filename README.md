@@ -24,6 +24,20 @@ func run(){
 //     /usr/local/go/src/testing/testing.go:991
 ```
 
+## Define Service Name
+
+```go
+import "github.com/monaco-io/logger"
+
+func init(){
+    logger.RegisterServiceName("Monaco")
+    I("msg", "key", "val")
+}
+
+// 2020-05-23T23:22:01.718+0800   INFO   Monaco   logger/level_test.go:80   msg   {"key": "val"}
+// {"L":"INFO","T":"2020-05-23T23:22:01.718+0800","N":"Monaco","C":"logger/level_test.go:80","M":"msg","key":"val"}
+```
+
 ## Enable Debug dimaic
 
 ```go

@@ -73,3 +73,9 @@ func TestRegisterWriter2(t *testing.T) {
 	RegisterWriter(new(slave), new(slave2))
 	I("msg", "key", "val")
 }
+
+func TestRegisterServiceName(t *testing.T) {
+	RegisterServiceName("Monaco")
+	RegisterWriter(new(slave))
+	I("msg", "key", "val")
+}

@@ -27,5 +27,5 @@ func newLogger() {
 		writerCore := zapcore.NewCore(enc, writer, _autoLevel)
 		core = zapcore.NewTee(core, writerCore)
 	}
-	log = zap.New(core, caller, callerConfig, trace)
+	log = zap.New(core, caller, callerConfig, trace).Named(name)
 }
