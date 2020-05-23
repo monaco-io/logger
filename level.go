@@ -19,3 +19,7 @@ func E(msg string, keyValues ...interface{}) {
 func P(msg string, keyValues ...interface{}) {
 	_handler(panic, msg, keyValues...)
 }
+
+func F(msg string, keyValues ...interface{}) {
+	_handler(fatal, msg, keyValues...)
+}

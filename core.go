@@ -13,5 +13,7 @@ func _handler(level int, msg string, keyValues ...interface{}) {
 		log.Sugar().Errorw(msg, keyValues...)
 	case panic:
 		log.Sugar().Panicw(msg, keyValues...)
+	case fatal:
+		log.Sugar().Fatalw(msg, keyValues...)
 	}
 }

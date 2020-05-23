@@ -11,6 +11,7 @@ const (
 	warn
 	err
 	panic
+	fatal
 )
 
 var (
