@@ -17,7 +17,7 @@ var (
 	enc          = zapcore.NewJSONEncoder(_encoderConfig)
 	trace        = zap.AddStacktrace(zap.ErrorLevel)
 
-	consoleCore = zapcore.NewCore(zapcore.NewConsoleEncoder(_encoderConfig), os.Stdout, _autoLevel)
+	core = zapcore.NewCore(zapcore.NewConsoleEncoder(_encoderConfig), os.Stdout, _autoLevel)
 )
 
 func RegisterWriter(writers ...io.Writer) {

@@ -21,7 +21,9 @@ func init() {
 }
 
 func newLogger() {
-	writerCore := zapcore.NewCore(enc, writer, _autoLevel)
-	core := zapcore.NewTee(consoleCore, writerCore)
+	if writer != nil {
+		writerCore := zapcore.NewCore(enc, writer, _autoLevel)
+		core = zapcore.NewTee(core, writerCore)
+	}
 	log = zap.New(core, caller, callerConfig, trace)
 }
