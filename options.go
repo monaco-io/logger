@@ -14,6 +14,7 @@ var (
 
 	name         string
 	writer       zapcore.WriteSyncer
+	errorWriter  zapcore.WriteSyncer
 	caller       = zap.AddCaller()
 	callerConfig = zap.AddCallerSkip(2)
 	enc          = zapcore.NewJSONEncoder(_encoderConfig)
@@ -32,6 +33,19 @@ func RegisterWriter(writers ...io.Writer) {
 		writerTmp = zap.CombineWriteSyncers(writerTmp, zapcore.AddSync(w))
 	}
 	writer = writerTmp
+	newLogger()
+}
+
+func RegisterErrorWriter(writers ...io.Writer) {
+	var writerTmp zapcore.WriteSyncer
+	for _, w := range writers {
+		if writerTmp == nil {
+			writerTmp = zapcore.AddSync(w)
+			continue
+		}
+		writerTmp = zap.CombineWriteSyncers(writerTmp, zapcore.AddSync(w))
+	}
+	errorWriter = writerTmp
 	newLogger()
 }
 

@@ -78,3 +78,28 @@ func (slave) Write(p []byte) (n int, err error) {
 // 2020-05-23T21:04:16.065+0800    INFO    logger/level_test.go:49    msg    {"key": "val"}
 // slave:  {"L":"INFO","T":"2020-05-23T21:04:16.065+0800","C":"logger/level_test.go:49","M":"msg","key":"val"}
 ```
+
+
+## New error writer
+
+```go
+import "github.com/monaco-io/logger"
+
+func init(){
+    logger.RegisterErrorWriter(new(slave))
+    logger.I("msg", "key", "val")
+    logger.E("msg", "key", "val")
+}
+
+type slave struct{}
+
+func (slave) Write(p []byte) (n int, err error) {
+    // do some with log data
+    fmt.Println("slave: ", string(p))
+    return
+}
+
+// 2020-05-23T21:04:16.065+0800    INFO    logger/level_test.go:49    msg    {"key": "val"}
+// 2020-05-23T21:04:16.065+0800    ERROR    logger/level_test.go:49    msg    {"key": "val"}
+// slave:  {"L":"ERROR","T":"2020-05-23T21:04:16.065+0800","C":"logger/level_test.go:49","M":"msg","key":"val"}
+```
