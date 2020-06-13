@@ -11,11 +11,13 @@
 import "github.com/monaco-io/logger"
 
 func run(){
+    logger.T("key", "val")
     logger.I("msg", "key", "val")
     logger.D("msg", "key", "val")
     logger.W("msg", "key", "val")
     logger.E("msg", "key", "val")
 }
+// 2020-06-13T23:06:11.339+0800    INFO    logger/level_test.go:107   dev    {"key": "val"}
 // 2020-05-23T19:57:03.903+0800    INFO    logger/level_test.go:9     msg    {"key": "val"}
 // 2020-05-23T19:57:03.903+0800    WARN    logger/level_test.go:11    msg    {"key": "val"}
 // 2020-05-23T19:57:03.903+0800    ERROR   logger/level_test.go:12    msg    {"key": "val"}
