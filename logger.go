@@ -12,6 +12,7 @@ const (
 	err
 	panic
 	fatal
+	dev
 )
 
 var (

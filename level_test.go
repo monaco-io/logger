@@ -10,7 +10,7 @@ import (
 type slave struct{}
 
 func (slave) Write(p []byte) (n int, err error) {
-	// do some with log data
+	// do something with log data
 	fmt.Println("slave: ", string(p))
 	return
 }
@@ -18,7 +18,7 @@ func (slave) Write(p []byte) (n int, err error) {
 type slave2 struct{}
 
 func (slave2) Write(p []byte) (n int, err error) {
-	// do some with log data
+	// do something with log data
 	fmt.Println("slave2: ", string(p))
 	return
 }
@@ -84,4 +84,27 @@ func TestRegisterServiceName(t *testing.T) {
 	RegisterServiceName("Monaco")
 	RegisterWriter(new(slave))
 	I("msg", "key", "val")
+}
+
+func TestT(t *testing.T) {
+	var mockStruct = struct{ key string }{key: "value"}
+	type args struct {
+		args []interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "T",
+			args: args{
+				[]interface{}{"key1", mockStruct, "key2", mockStruct},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			T(tt.args.args...)
+		})
+	}
 }

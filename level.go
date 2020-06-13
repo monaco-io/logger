@@ -23,3 +23,7 @@ func P(msg string, keyValues ...interface{}) {
 func F(msg string, keyValues ...interface{}) {
 	_handler(fatal, msg, keyValues...)
 }
+
+func T(keyValues ...interface{}) {
+	_handler(dev, "dev", keyValues...)
+}
