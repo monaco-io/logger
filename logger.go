@@ -27,10 +27,12 @@ func newLogger() {
 	if writer != nil {
 		writerCore := zapcore.NewCore(enc, writer, _autoLevel)
 		core = zapcore.NewTee(core, writerCore)
+		writer = nil
 	}
 	if errorWriter != nil {
 		writerCore := zapcore.NewCore(enc, errorWriter, zap.ErrorLevel)
 		core = zapcore.NewTee(core, writerCore)
+		errorWriter = nil
 	}
 	log = zap.New(core, caller, callerConfig, trace).Named(name)
 }

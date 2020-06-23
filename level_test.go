@@ -76,7 +76,7 @@ func TestRegisterWriter2(t *testing.T) {
 
 func TestRegisterErrorWriter(t *testing.T) {
 	RegisterErrorWriter(new(slave), new(slave2))
-	I("msg", "key", "val")
+	RegisterServiceName("svc name")
 	E("msg", "key", "val")
 }
 
