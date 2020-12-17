@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
@@ -86,7 +87,7 @@ func TestRegisterServiceName(t *testing.T) {
 	I("msg", "key", "val")
 }
 
-func TestT(t *testing.T) {
+func TestLog(t *testing.T) {
 	var mockStruct = struct{ key string }{key: "value"}
 	type args struct {
 		args []interface{}
@@ -104,7 +105,37 @@ func TestT(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			T(tt.args.args...)
+			Log(tt.args.args...)
+		})
+	}
+}
+
+func Test_contextLogger_I(t *testing.T) {
+	type fields struct {
+		ctx context.Context
+	}
+	type args struct {
+		msg       string
+		keyValues []interface{}
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		{
+			fields: fields{},
+			args: args{
+				msg:       "test",
+				keyValues: []interface{}{"key1", "val1", "key2", "val2"},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.TODO()
+			WithContext(&ctx).I(tt.args.msg, tt.args.keyValues...)
+			WithContext(&ctx).I(tt.args.msg, tt.args.keyValues...)
 		})
 	}
 }

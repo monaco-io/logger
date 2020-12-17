@@ -45,7 +45,7 @@ func init(){
 // {"L":"INFO","T":"2020-05-23T23:22:01.718+0800","N":"Monaco","C":"logger/level_test.go:80","M":"msg","key":"val"}
 ```
 
-## Enable Debug dimaic
+## Enable Debug dynamic
 
 ```go
 import "github.com/monaco-io/logger"
@@ -81,7 +81,6 @@ func (slave) Write(p []byte) (n int, err error) {
 // slave:  {"L":"INFO","T":"2020-05-23T21:04:16.065+0800","C":"logger/level_test.go:49","M":"msg","key":"val"}
 ```
 
-
 ## New error writer
 
 ```go
@@ -104,4 +103,19 @@ func (slave) Write(p []byte) (n int, err error) {
 // 2020-05-23T21:04:16.065+0800    INFO    logger/level_test.go:49    msg    {"key": "val"}
 // 2020-05-23T21:04:16.065+0800    ERROR    logger/level_test.go:49    msg    {"key": "val"}
 // slave:  {"L":"ERROR","T":"2020-05-23T21:04:16.065+0800","C":"logger/level_test.go:49","M":"msg","key":"val"}
+```
+
+## Micro Service RequestID
+
+```go
+import "github.com/monaco-io/logger"
+
+func init(){
+    ctx := context.TODO()
+    logger.WithContext(&ctx).I(tt.args.msg, tt.args.keyValues...)
+    logger.WithContext(&ctx).I(tt.args.msg, tt.args.keyValues...)
+}
+
+// 2020-12-17T16:31:45.509+0800 INFO logger/level_test.go:137 msg {"x-request-id": "981afd44-2614-4320-8456-879d07d1aa1d", "key1": "val1", "key2": "val2"}
+// 2020-12-17T16:31:45.509+0800 INFO logger/level_test.go:137 msg {"x-request-id": "981afd44-2614-4320-8456-879d07d1aa1d", "key1": "val1", "key2": "val2"}
 ```
