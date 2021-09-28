@@ -1,9 +1,24 @@
 package logger
 
+import (
+	"google.golang.org/grpc/metadata"
+)
+
 func _handler(c *contextLogger, level int, msg string, keyValues ...interface{}) {
 	sugar := log.Sugar()
 	if c != nil {
-		sugar = sugar.With(contextKeyRequestID.(string), c.Context.Value(contextKeyRequestID).(string))
+		var in bool
+		imd, iok := metadata.FromIncomingContext(c.Context)
+		if iok && len(imd[xRequestID]) > 0 {
+			sugar = sugar.With(xRequestID, imd[xRequestID][0])
+			in = true
+		}
+		if !in {
+			omd, ook := metadata.FromOutgoingContext(c.Context)
+			if ook && len(omd[xRequestID]) > 0 {
+				sugar = sugar.With(xRequestID, omd[xRequestID][0])
+			}
+		}
 	}
 	defer func() { _ = log.Sync() }()
 

@@ -18,10 +18,6 @@ const (
 const arrow = "->"
 
 var (
-	contextKeyRequestID contextKey = "x-request-id"
-)
-
-var (
 	log *zap.Logger // core
 )
 
